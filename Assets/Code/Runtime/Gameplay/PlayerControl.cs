@@ -1,34 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-namespace PlanetNein
+namespace PlanetNein.Runtime.Gameplay
 {
     public class PlayerControl : MonoBehaviourPun
     {
         private Camera cam;
         public GameObject Projectile;
-        public int ProjectileForce;
 
-        void Start()
+        private void Start()
         {
             cam = Camera.main;
         }
 
-        void Shoot(Vector2 target)
+        private void Shoot(Vector2 target)
         {
-            GameObject newProjectile = Instantiate(Projectile, transform.position, Quaternion.identity);
-            newProjectile.transform.LookAt(Vector3.forward, target - (Vector2)transform.position);
-            newProjectile.GetComponent<Rigidbody2D>().AddForce(Vector3.forward * ProjectileForce);
+            var rotation = Quaternion.LookRotation(Vector3.forward, target - (Vector2) transform.position);
+            PhotonNetwork.Instantiate(Projectile.name, transform.position, rotation);
         }
 
-        void Update()
+        private void Update()
         {
             if (photonView.IsMine)
             {
                 if (Input.GetMouseButtonDown(0))
+                {
                     Shoot(cam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y)));
+                }
             }
         }
     }
