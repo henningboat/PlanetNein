@@ -11,6 +11,7 @@ namespace PlanetNein.Runtime.Gameplay
 
         private Rigidbody2D _rigidbody;
         [SerializeField] private Vector2 _startForce;
+        [SerializeField] private float forceMultiplier=1;
 
         private void Awake()
         {
@@ -42,7 +43,7 @@ namespace PlanetNein.Runtime.Gameplay
 
                 if (Vector2.Distance(transform.position, other.transform.position) < _radius + other._radius)
                 {
-                    Vector2 addForce = (other.transform.position - transform.position).normalized  * (_gravityStrength * Time.deltaTime);
+                    Vector2 addForce = (other.transform.position - transform.position).normalized  * (_gravityStrength * Time.deltaTime)*other.forceMultiplier;
                     _rigidbody.AddForce(addForce, ForceMode2D.Force);
                 }
             }
