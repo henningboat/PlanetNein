@@ -1,21 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
+using Runtime.Gameplay;
 using UnityEngine;
 
-namespace PlanetNein
+namespace PlanetNein.Runtime.Gameplay
 {
-    public class StaticGravityObject : MonoBehaviour
+    public class StaticGravityObject : MonoBehaviour, IGravityObject
     {
-        // Start is called before the first frame update
-        void Start()
+        public float Radius => 10000;
+        public float ForceMultiplier => 1;
+        public Vector2 Position => transform.position;
+
+        private void Start()
         {
-        
+            GravityObjectManager.Instance.AddObject(this);
         }
 
-        // Update is called once per frame
-        void Update()
+        private void OnDestroy()
         {
-        
+            GravityObjectManager.Instance.RemoveObject(this);
         }
     }
 }

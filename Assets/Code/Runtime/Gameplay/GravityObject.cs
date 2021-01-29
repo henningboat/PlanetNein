@@ -15,7 +15,6 @@ namespace PlanetNein.Runtime.Gameplay
         [SerializeField] private float forceMultiplier=1;
 
         public float Radius => _radius;
-
         public float ForceMultiplier => forceMultiplier;
         public Vector2 Position => transform.position;
 
