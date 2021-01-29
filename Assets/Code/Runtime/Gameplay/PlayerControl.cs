@@ -18,22 +18,28 @@ namespace PlanetNein.Runtime.Gameplay
         {
             var rotation = Quaternion.LookRotation(Vector3.forward, target - (Vector2) transform.position);
             PhotonNetwork.Instantiate(projectile.name, transform.position, rotation);
+            
         }
 
-        private void Move(Vector2 moveDir)
+        private void Move(Vector2 shootTarget)
         {
-            GetComponent<Rigidbody2D>().AddForce(moveDir * moveForce);
+            Vector2 moveDirection = (Vector2)transform.position - shootTarget;
+            moveDirection.Normalize();
+            //Debug.DrawRay(transform.position, moveDirection, Color.green);
+            GetComponent<Rigidbody2D>().AddForce(moveDirection * moveForce, ForceMode2D.Impulse);
         }
 
         private void Update()
         {
             if (photonView.IsMine)
             {
+                
+
                 if (Input.GetMouseButtonDown(0))
                 {
                     Vector2 targetDirection = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
                     Shoot(cam.ScreenToWorldPoint(targetDirection));
-                    Move((1) * targetDirection);
+                    Move(cam.ScreenToWorldPoint(targetDirection));
                 }
             }
         }

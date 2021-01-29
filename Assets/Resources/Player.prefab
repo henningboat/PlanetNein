@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 5837197265171688003, guid: 33cebf89ae9e8634a830f9f336fc9453, type: 3}
-  moveForce: 0.12
+  moveForce: 4.22
 --- !u!1001 &8108023865452415020
 PrefabInstance:
   m_ObjectHideFlags: 0
