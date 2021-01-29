@@ -30,7 +30,11 @@ namespace PlanetNein.Runtime.Gameplay
                 return;
             }
 
-            var canReceiveDamage = damagable.photonView.IsMine && !photonView.IsMine;
+            bool canReceiveDamage= damagable.photonView.IsMine;
+            if (damagable.IsPlayer)
+            {
+                canReceiveDamage &= this.photonView.IsMine == false;
+            }
 
             if (canReceiveDamage)
             {
