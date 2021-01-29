@@ -121,6 +121,7 @@ MonoBehaviour:
   _gravityStrength: 100
   _radius: 2.03
   _startForce: {x: 0.2, y: -4.48}
+  forceMultiplier: 1
 --- !u!96 &2352083548401575873
 TrailRenderer:
   serializedVersion: 2
@@ -129,7 +130,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2373786750075476530}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
