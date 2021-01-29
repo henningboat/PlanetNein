@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 namespace PlanetNein
 {
-    public class PlayerControl : MonoBehaviour
+    public class PlayerControl : MonoBehaviourPun
     {
         private Camera cam;
         public GameObject Projectile;
@@ -24,8 +25,11 @@ namespace PlanetNein
 
         void Update()
         {
-            if (Input.GetMouseButtonDown(0))
-                Shoot(cam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y)));
+            if (photonView.IsMine)
+            {
+                if (Input.GetMouseButtonDown(0))
+                    Shoot(cam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y)));
+            }
         }
     }
 }
