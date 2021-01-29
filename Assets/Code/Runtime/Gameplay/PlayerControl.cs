@@ -6,7 +6,8 @@ namespace PlanetNein.Runtime.Gameplay
     public class PlayerControl : MonoBehaviourPun
     {
         private Camera cam;
-        public GameObject Projectile;
+        [SerializeField] private GameObject projectile;
+        [SerializeField] private float moveForce;
 
         private void Start()
         {
@@ -16,7 +17,12 @@ namespace PlanetNein.Runtime.Gameplay
         private void Shoot(Vector2 target)
         {
             var rotation = Quaternion.LookRotation(Vector3.forward, target - (Vector2) transform.position);
-            PhotonNetwork.Instantiate(Projectile.name, transform.position, rotation);
+            PhotonNetwork.Instantiate(projectile.name, transform.position, rotation);
+        }
+
+        private void Move(Vector2 moveDir)
+        {
+            GetComponent<Rigidbody2D>().AddForce(moveDir * moveForce);
         }
 
         private void Update()
@@ -25,7 +31,9 @@ namespace PlanetNein.Runtime.Gameplay
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    Shoot(cam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y)));
+                    Vector2 targetDirection = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+                    Shoot(cam.ScreenToWorldPoint(targetDirection));
+                    Move((1) * targetDirection);
                 }
             }
         }
