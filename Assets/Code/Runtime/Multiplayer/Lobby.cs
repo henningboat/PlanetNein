@@ -72,7 +72,9 @@ namespace Runtime.Multiplayer
         public override void OnConnectedToMaster()
         {
             byte maxPlayers = (byte) (_debugSingleplayer ? 1 : 2);
-            PhotonNetwork.JoinOrCreateRoom("Public Match", new RoomOptions {MaxPlayers = maxPlayers}, TypedLobby.Default);
+            
+            var roomName = _debugSingleplayer ? UnityEngine.Random.value.ToString() : "PublicMatch";
+            PhotonNetwork.JoinOrCreateRoom(roomName, new RoomOptions {MaxPlayers = maxPlayers}, TypedLobby.Default);
         }
 
         public override void OnJoinedRoom()
@@ -84,6 +86,7 @@ namespace Runtime.Multiplayer
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
             base.OnJoinRoomFailed(returnCode, message);
+            Debug.LogError(message);
             OnError();
         }
 
