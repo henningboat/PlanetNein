@@ -19,7 +19,7 @@ namespace PlanetNein.Runtime.Gameplay
 
         private void Start()
         {
-            _rigidbody.AddForce(_startForce, ForceMode2D.Impulse);
+            _rigidbody.AddForce(transform.localToWorldMatrix.MultiplyVector(_startForce), ForceMode2D.Impulse);
             GravityObjectManager.Instance.AddObject(this);
         }
 
@@ -42,7 +42,7 @@ namespace PlanetNein.Runtime.Gameplay
 
                 if (Vector2.Distance(transform.position, other.transform.position) < _radius + other._radius)
                 {
-                    Vector2 addForce = (other.transform.position - transform.position).normalized * (_gravityStrength * Time.deltaTime);
+                    Vector2 addForce = (other.transform.position - transform.position).normalized  * (_gravityStrength * Time.deltaTime);
                     _rigidbody.AddForce(addForce, ForceMode2D.Force);
                 }
             }
@@ -50,8 +50,9 @@ namespace PlanetNein.Runtime.Gameplay
 
         private void OnDrawGizmos()
         {
-            Gizmos.DrawWireSphere(transform.position, _radius);
-            Gizmos.DrawRay(transform.position, _startForce);
+            Gizmos.matrix = transform.localToWorldMatrix;
+            Gizmos.DrawWireSphere(Vector3.zero, _radius);
+            Gizmos.DrawRay(Vector3.zero, _startForce);
         }
     }
 }
