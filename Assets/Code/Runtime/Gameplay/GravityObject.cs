@@ -69,5 +69,10 @@ namespace PlanetNein.Runtime.Gameplay
             Gizmos.DrawWireSphere(Vector3.zero, Radius);
             Gizmos.DrawRay(Vector3.zero, _startForce);
         }
+
+        public void AddForce(Vector2 velocity)
+        {
+            _rigidbody.AddForce(velocity);
+        }
     }
 }

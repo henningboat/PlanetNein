@@ -1,11 +1,14 @@
-﻿using Photon.Pun;
+﻿using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 
 namespace PlanetNein.Runtime.Gameplay
 {
     public class Projectile : MonoBehaviourPun
     {
+        [SerializeField] private float _lifetime;
         private Rigidbody2D _rigidbody;
+
         [SerializeField] private float _startForce = 4;
 
         private void Awake()
@@ -13,11 +16,15 @@ namespace PlanetNein.Runtime.Gameplay
             _rigidbody = GetComponent<Rigidbody2D>();
         }
 
-        public void Start()
+        public IEnumerator Start()
         {
             if (photonView.IsMine)
             {
                 _rigidbody.AddForce(transform.up * _startForce, ForceMode2D.Impulse);
+                
+                yield return new WaitForSeconds(_startForce);
+                
+                PhotonNetwork.Destroy(photonView);
             }
         }
 
@@ -30,10 +37,10 @@ namespace PlanetNein.Runtime.Gameplay
                 return;
             }
 
-            bool canReceiveDamage= damagable.photonView.IsMine;
+            var canReceiveDamage = damagable.photonView.IsMine;
             if (damagable.IsPlayer)
             {
-                canReceiveDamage &= this.photonView.IsMine == false;
+                canReceiveDamage &= photonView.IsMine == false;
             }
 
             if (canReceiveDamage)

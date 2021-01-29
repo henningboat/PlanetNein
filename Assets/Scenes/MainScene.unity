@@ -406,6 +406,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerPrefab: {fileID: -1783213330192385552, guid: f4865c50d4c3a224d87e2318510c22ea, type: 3}
+  _spawnDistance: 10
+  _spawnVelocity: 40
 --- !u!4 &521277862
 Transform:
   m_ObjectHideFlags: 0
@@ -693,7 +695,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 2bd8f2cb2383d004999c1830128a171e, type: 3}
   m_Color: {r: 1, g: 0.9263607, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -713,7 +715,7 @@ Transform:
   m_GameObject: {fileID: 1075299861}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.1, y: -0.63, z: 0}
-  m_LocalScale: {x: 8, y: 8, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
