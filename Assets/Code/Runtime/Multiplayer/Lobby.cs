@@ -1,6 +1,7 @@
 using System;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEditor;
 using UnityEngine;
 
 namespace Runtime.Multiplayer
@@ -68,7 +69,17 @@ namespace Runtime.Multiplayer
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
             base.OnJoinRoomFailed(returnCode, message);
-            Application.Quit();
+            OnError();
+        }
+
+        private static void OnError()
+        {
+#if UNITY_EDITOR
+            if (Application.isEditor)
+                EditorApplication.ExitPlaymode();
+            else
+#endif
+                Application.Quit();
         }
 
         public override void OnPlayerEnteredRoom(Player newPlayer)

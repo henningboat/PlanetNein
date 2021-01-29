@@ -1,10 +1,11 @@
+using Photon.Pun;
 using Runtime.Gameplay;
 using UnityEngine;
 
 namespace PlanetNein.Runtime.Gameplay
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class GravityObject : MonoBehaviour
+    public class GravityObject : MonoBehaviourPun, IGravityObject
     {
         [SerializeField] private float _gravityStrength = 2;
         [SerializeField] private float _radius = 10;
@@ -13,6 +14,11 @@ namespace PlanetNein.Runtime.Gameplay
         [SerializeField] private Vector2 _startForce;
         [SerializeField] private float forceMultiplier=1;
 
+        public float Radius => _radius;
+
+        public float ForceMultiplier => forceMultiplier;
+        public Vector2 Position => transform.position;
+
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
@@ -20,7 +26,13 @@ namespace PlanetNein.Runtime.Gameplay
 
         private void Start()
         {
-            _rigidbody.AddForce(transform.localToWorldMatrix.MultiplyVector(_startForce), ForceMode2D.Impulse);
+            _rigidbody.isKinematic = photonView.IsMine == false;
+            
+            if (photonView.IsMine)
+            {
+                _rigidbody.AddForce(transform.localToWorldMatrix.MultiplyVector(_startForce), ForceMode2D.Impulse);
+            }
+
             GravityObjectManager.Instance.AddObject(this);
         }
 
@@ -34,17 +46,20 @@ namespace PlanetNein.Runtime.Gameplay
 
         private void FixedUpdate()
         {
-            foreach (var other in GravityObjectManager.Instance.GravityObjects)
+            if (photonView.IsMine)
             {
-                if (other == this)
+                foreach (var other in GravityObjectManager.Instance.GravityObjects)
                 {
-                    continue;
-                }
+                    if (ReferenceEquals(other, this))
+                    {
+                        continue;
+                    }
 
-                if (Vector2.Distance(transform.position, other.transform.position) < _radius + other._radius)
-                {
-                    Vector2 addForce = (other.transform.position - transform.position).normalized  * (_gravityStrength * Time.deltaTime)*other.forceMultiplier;
-                    _rigidbody.AddForce(addForce, ForceMode2D.Force);
+                    if (Vector2.Distance(transform.position, other.Position) < Radius + other.Radius)
+                    {
+                        Vector2 addForce = (other.Position - Position).normalized * (_gravityStrength * Time.deltaTime * other.ForceMultiplier);
+                        _rigidbody.AddForce(addForce, ForceMode2D.Force);
+                    }
                 }
             }
         }
@@ -52,7 +67,7 @@ namespace PlanetNein.Runtime.Gameplay
         private void OnDrawGizmos()
         {
             Gizmos.matrix = transform.localToWorldMatrix;
-            Gizmos.DrawWireSphere(Vector3.zero, _radius);
+            Gizmos.DrawWireSphere(Vector3.zero, Radius);
             Gizmos.DrawRay(Vector3.zero, _startForce);
         }
     }

@@ -6,15 +6,15 @@ namespace Runtime.Gameplay
 {
     public class GravityObjectManager : Singleton<GravityObjectManager>
     {
-        private List<GravityObject> _gravityObjects = new List<GravityObject>();
-        public IReadOnlyList<GravityObject> GravityObjects => _gravityObjects;
+        private List<IGravityObject> _gravityObjects = new List<IGravityObject>();
+        public IReadOnlyList<IGravityObject> GravityObjects => _gravityObjects;
 
-        public void AddObject(GravityObject gravityObject)
+        public void AddObject(IGravityObject gravityObject)
         {
             _gravityObjects.Add(gravityObject);
         }
 
-        public void RemoveObject(GravityObject gravityObject)
+        public void RemoveObject(IGravityObject gravityObject)
         {
             _gravityObjects.Remove(gravityObject);
         }
