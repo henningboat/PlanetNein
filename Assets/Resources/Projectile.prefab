@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5826265460210238852}
   - component: {fileID: 713297154620003208}
   - component: {fileID: -8406481874017927901}
+  - component: {fileID: 8491752069968295439}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -119,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aa2cd444b0e4ab2a527aa07fc63050f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startForce: 10
 --- !u!114 &713297154620003208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,3 +177,19 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &8491752069968295439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5837197265171688003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f12fb3dff3528a945a975f2ad0edb16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gravityStrength: 2
+  _radius: 10
+  _startForce: {x: 0, y: 0}
+  forceMultiplier: 0

@@ -16,7 +16,10 @@ namespace PlanetNein.Runtime.Gameplay
 
         private void OnDestroy()
         {
-            GravityObjectManager.Instance.RemoveObject(this);
+            if (GravityObjectManager.Instance != null)
+            {
+                GravityObjectManager.Instance.RemoveObject(this);
+            }
         }
     }
 }
