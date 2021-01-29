@@ -1,3 +1,4 @@
+using System;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -33,6 +34,11 @@ namespace Runtime.Multiplayer
         #region Private Fields
 
         #endregion
+
+        public void Start()
+        {
+            Connect();
+        }
 
         #region Public methods
 
