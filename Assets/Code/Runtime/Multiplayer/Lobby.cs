@@ -1,12 +1,17 @@
 using System;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 namespace Runtime.Multiplayer
 {
     public class Lobby : MonoBehaviourPunCallbacks
     {
+        private static bool _debugSingleplayer;
+
         #region Unity methods
 
         private void Awake()
@@ -42,6 +47,16 @@ namespace Runtime.Multiplayer
 
         #region Public methods
 
+        /// <summary>
+        /// Loads LobbyScene, 
+        /// Gets called by EditorSessionStarter in Editor if the game is started from MainScene
+        /// </summary>
+        public static void EditorConnectSinglePlayer()
+        {
+            _debugSingleplayer = true;
+            SceneManager.LoadScene("Lobby");
+        }
+        
         public void Connect()
         {
             if (PhotonNetwork.IsConnected)
@@ -56,7 +71,8 @@ namespace Runtime.Multiplayer
 
         public override void OnConnectedToMaster()
         {
-            PhotonNetwork.JoinOrCreateRoom("Public Match", new RoomOptions {MaxPlayers = 2}, TypedLobby.Default);
+            byte maxPlayers = (byte) (_debugSingleplayer ? 1 : 2);
+            PhotonNetwork.JoinOrCreateRoom("Public Match", new RoomOptions {MaxPlayers = maxPlayers}, TypedLobby.Default);
         }
 
         public override void OnJoinedRoom()
@@ -68,7 +84,17 @@ namespace Runtime.Multiplayer
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
             base.OnJoinRoomFailed(returnCode, message);
-            Application.Quit();
+            OnError();
+        }
+
+        private static void OnError()
+        {
+#if UNITY_EDITOR
+            if (Application.isEditor)
+                EditorApplication.ExitPlaymode();
+            else
+#endif
+                Application.Quit();
         }
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
