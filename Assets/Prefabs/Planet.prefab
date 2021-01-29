@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 2352083548401575873}
   - component: {fileID: 7686804424542581325}
   - component: {fileID: 2471874366420077557}
+  - component: {fileID: 505280636087017756}
+  - component: {fileID: 2741161733237599642}
   m_Layer: 0
   m_Name: Planet
   m_TagString: Untagged
@@ -278,3 +280,31 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &505280636087017756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2373786750075476530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 475ed4c9703040e692be75f45cd72376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!58 &2741161733237599642
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2373786750075476530}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1
