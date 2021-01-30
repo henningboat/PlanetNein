@@ -21,6 +21,9 @@ namespace PlanetNein.Runtime.CameraSystem
             float targetZoom = 0;
             foreach (var gravityObject in GravityObjectManager.Instance.GravityObjects)
             {
+                if(gravityObject.AffectCamera)
+                    continue;
+                
                 var cameraPosition = gravityObject.Position;
                 cameraPosition.x /= _virtualCamera.m_Lens.Aspect;
                 targetZoom = Mathf.Max(targetZoom, cameraPosition.magnitude);
