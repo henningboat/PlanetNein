@@ -776,7 +776,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1075299865}
   m_Lens:
     FieldOfView: 40
-    OrthographicSize: 27.03008
+    OrthographicSize: 30.40694
     NearClipPlane: 0.001
     FarClipPlane: 5000
     Dutch: 0
@@ -932,7 +932,7 @@ GameObject:
   - component: {fileID: 1075299864}
   - component: {fileID: 1075299862}
   - component: {fileID: 1075299863}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
