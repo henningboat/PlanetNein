@@ -107,8 +107,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9d9f18528ea73b469d60c24d25c8e4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _reloadTime: 3
   projectile: {fileID: 5837197265171688003, guid: 33cebf89ae9e8634a830f9f336fc9453, type: 3}
-  moveForce: 4.22
+  shotPushForce: 3
+  steeringPushForce: 2
 --- !u!1001 &8108023865452415020
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -122,11 +124,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2373786750075476557, guid: 714520d96b5c83e46b5f38e9efe15e42, type: 3}
       propertyPath: _startForce.x
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2373786750075476557, guid: 714520d96b5c83e46b5f38e9efe15e42, type: 3}
       propertyPath: _startForce.y
-      value: -6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2373786750075476558, guid: 714520d96b5c83e46b5f38e9efe15e42, type: 3}
       propertyPath: m_RootOrder

@@ -124,8 +124,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gravityStrength: 100
   _radius: 2.03
-  _startForce: {x: 0.2, y: -2.86}
+  _startForce: {x: 0.2, y: -5.9}
   forceMultiplier: 3.02
+  _affectCamera: 1
 --- !u!96 &2352083548401575873
 TrailRenderer:
   serializedVersion: 2
@@ -307,4 +308,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 2.23

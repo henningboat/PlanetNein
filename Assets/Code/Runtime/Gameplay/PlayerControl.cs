@@ -1,4 +1,3 @@
-using System;
 using Photon.Pun;
 using UnityEngine;
 
@@ -6,9 +5,19 @@ namespace PlanetNein.Runtime.Gameplay
 {
     public class PlayerControl : MonoBehaviourPun
     {
+        private float _lastShotTime;
+        [SerializeField] private float _reloadTime = 3;
+        private Rigidbody2D _rigidbody;
         private Camera cam;
+
         [SerializeField] private GameObject projectile;
-        [SerializeField] private float moveForce;
+        [SerializeField] private float shotPushForce;
+        [SerializeField] private float steeringPushForce;
+
+        private void Awake()
+        {
+            _rigidbody = GetComponent<Rigidbody2D>();
+        }
 
         private void Start()
         {
@@ -18,31 +27,52 @@ namespace PlanetNein.Runtime.Gameplay
         private void Shoot(Vector2 target)
         {
             var rotation = Quaternion.LookRotation(Vector3.forward, target - (Vector2) transform.position);
-            PhotonNetwork.Instantiate(projectile.name, transform.position, rotation);
-            
+            var projectileInstance = PhotonNetwork.Instantiate(projectile.name, transform.position, rotation).GetComponent<Projectile>();
+            projectileInstance.AddForce(_rigidbody.velocity);
+
+            ApplyShotPush(target);
         }
 
-        private void Move(Vector2 shootTarget)
+        private void ApplyShotPush(Vector2 shootTarget)
         {
-            Vector2 moveDirection = (Vector2)transform.position - shootTarget;
+            var moveDirection = (Vector2) transform.position - shootTarget;
             moveDirection.Normalize();
             //Debug.DrawRay(transform.position, moveDirection, Color.green);
-            GetComponent<Rigidbody2D>().AddForce(moveDirection * moveForce, ForceMode2D.Impulse);
+            _rigidbody.AddForce(moveDirection * shotPushForce, ForceMode2D.Impulse);
+        }
+
+        private void FixedUpdate()
+        {
+            ApplySteering();
         }
 
         private void Update()
         {
             if (photonView.IsMine)
             {
-                
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    Vector2 targetDirection = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-                    Shoot(cam.ScreenToWorldPoint(targetDirection));
-                    Move(cam.ScreenToWorldPoint(targetDirection));
+                    if (Time.time - _lastShotTime > _reloadTime)
+                    {
+                        var targetDirection = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+                        Shoot(cam.ScreenToWorldPoint(targetDirection));
+                        
+                        _lastShotTime = Time.time;
+                    }
                 }
             }
+        }
+
+        private void ApplySteering()
+        {
+            var input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            if (input == Vector2.zero)
+            {
+                return;
+            }
+
+            _rigidbody.AddForce(input.normalized * steeringPushForce * Time.deltaTime, ForceMode2D.Impulse);
         }
     }
 }

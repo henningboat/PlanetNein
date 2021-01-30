@@ -7,5 +7,6 @@ namespace PlanetNein.Runtime.Gameplay
         float Radius { get; }
         float ForceMultiplier { get; }
         Vector2 Position { get; }
+        bool AffectCamera { get; }
     }
 }

@@ -13,10 +13,12 @@ namespace PlanetNein.Runtime.Gameplay
         private Rigidbody2D _rigidbody;
         [SerializeField] private Vector2 _startForce;
         [SerializeField] private float forceMultiplier=1;
+        [SerializeField] private bool _affectCamera=true;
 
         public float Radius => _radius;
         public float ForceMultiplier => forceMultiplier;
         public Vector2 Position => transform.position;
+        public bool AffectCamera => _affectCamera;
 
         private void Awake()
         {
@@ -72,7 +74,7 @@ namespace PlanetNein.Runtime.Gameplay
 
         public void AddForce(Vector2 velocity)
         {
-            _rigidbody.AddForce(velocity);
+            _rigidbody.AddForce(velocity, ForceMode2D.Impulse);
         }
     }
 }

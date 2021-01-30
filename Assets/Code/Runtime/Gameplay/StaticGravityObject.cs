@@ -8,6 +8,7 @@ namespace PlanetNein.Runtime.Gameplay
         public float Radius => 10000;
         public float ForceMultiplier => 1;
         public Vector2 Position => transform.position;
+        public bool AffectCamera => false;
 
         private void Start()
         {
