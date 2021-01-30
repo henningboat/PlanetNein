@@ -10,7 +10,7 @@ namespace Runtime.Multiplayer
 {
     public class Lobby : MonoBehaviourPunCallbacks
     {
-        private static bool _debugSingleplayer;
+        public static bool IsDebugSession { get; private set; }
 
         #region Unity methods
 
@@ -53,7 +53,7 @@ namespace Runtime.Multiplayer
         /// </summary>
         public static void EditorConnectSinglePlayer()
         {
-            _debugSingleplayer = true;
+            IsDebugSession = true;
             SceneManager.LoadScene("Lobby");
         }
         
@@ -71,9 +71,9 @@ namespace Runtime.Multiplayer
 
         public override void OnConnectedToMaster()
         {
-            byte maxPlayers = (byte) (_debugSingleplayer ? 1 : 2);
+            byte maxPlayers = (byte) (IsDebugSession ? 1 : 2);
             
-            var roomName = _debugSingleplayer ? UnityEngine.Random.value.ToString() : "PublicMatch";
+            var roomName = IsDebugSession ? UnityEngine.Random.value.ToString() : "PublicMatch";
             PhotonNetwork.JoinOrCreateRoom(roomName, new RoomOptions {MaxPlayers = maxPlayers}, TypedLobby.Default);
         }
 

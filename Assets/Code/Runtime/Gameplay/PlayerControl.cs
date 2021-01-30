@@ -22,6 +22,7 @@ namespace PlanetNein.Runtime.Gameplay
         private void Start()
         {
             cam = Camera.main;
+            GameLoop.Instance.RegisterPlayer(this);
         }
 
         private void Shoot(Vector2 target)
