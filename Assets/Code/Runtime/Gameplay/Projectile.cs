@@ -59,14 +59,17 @@ namespace PlanetNein.Runtime.Gameplay
             {
                 damagable.Damage();
                 _appliedDamage = true;
-                photonView.RPC("DestroyProjectile", RpcTarget.MasterClient);
+                photonView.RPC("DestroyProjectile", RpcTarget.AllViaServer);
             }
         }
 
         [PunRPC]
         private void DestroyProjectile()
         {
-            PhotonNetwork.Destroy(photonView);
+            if (photonView.IsMine)
+            {
+                PhotonNetwork.Destroy(photonView);
+            }
         }
     }
 }

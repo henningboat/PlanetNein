@@ -90,7 +90,7 @@ namespace Runtime.Multiplayer
             OnError();
         }
 
-        private static void OnError()
+        public static void OnError()
         {
 #if UNITY_EDITOR
             if (Application.isEditor)
