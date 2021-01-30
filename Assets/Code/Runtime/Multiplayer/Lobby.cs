@@ -30,6 +30,7 @@ namespace Runtime.Multiplayer
             if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
             {
                 PhotonNetwork.CurrentRoom.IsOpen = false;
+                PhotonNetwork.CurrentRoom.IsVisible = false;
                 PhotonNetwork.LoadLevel("MainScene");
             }
         }

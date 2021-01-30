@@ -62,6 +62,14 @@ namespace PlanetNein.Runtime.Gameplay
                         _lastShotTime = Time.time;
                     }
                 }
+
+                if (Debug.isDebugBuild)
+                {
+                    if (Input.GetKeyDown(KeyCode.Delete))
+                    {
+                        PhotonNetwork.Destroy(photonView);
+                    }
+                }
             }
         }
 

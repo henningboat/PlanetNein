@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
+using PlanetNein.Runtime.UI;
 using Runtime.Multiplayer;
 using THUtils;
 using UnityEngine;
@@ -24,7 +25,7 @@ namespace PlanetNein.Runtime.Gameplay
             PlayerWonRound = 1 << 3,
             Draw = 1 << 4,
             ReloadLevel = 1 << 5,
-            PlayerWonGame = 1 << 6
+           // PlayerWonGame = 1 << 6
         }
 
         [SerializeField] private float _cooldownTime = 2;
@@ -42,6 +43,19 @@ namespace PlanetNein.Runtime.Gameplay
         private int PlayerAliveCount
         {
             get { return _players.Count(p => p != null); }
+        }
+
+        public PlayerControl Winner
+        {
+            get
+            {
+                if ((GameLoop.Instance.CurrentGameState & GameState.PlayerWonRound) != 0)
+                {
+                    return _players.FirstOrDefault(p => p != null);
+                }
+
+                return null;
+            }
         }
 
 
@@ -74,6 +88,8 @@ namespace PlanetNein.Runtime.Gameplay
         private void StateChange(byte state)
         {
             CurrentGameState = (GameState) state;
+            Debug.Log(CurrentGameState);
+            
             _lastStateSwitchTime = Time.time;
             switch (CurrentGameState)
             {
@@ -90,8 +106,6 @@ namespace PlanetNein.Runtime.Gameplay
                     StartCoroutine(RestartRoundDelayed());
                     break;
                 case GameState.ReloadLevel:
-                    break;
-                case GameState.PlayerWonGame:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -142,9 +156,9 @@ namespace PlanetNein.Runtime.Gameplay
 
                         return GameState.PlayerWonRound;
                     }
-
                     break;
                 case GameState.PlayerWonRound:
+                    RoundEndScreen.Instance.ShowScreen();
                     break;
                 case GameState.Draw:
                     break;

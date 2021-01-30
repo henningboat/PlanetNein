@@ -7,10 +7,11 @@ namespace PlanetNein.Runtime.Utils
     public class EnableInGameState : MonoBehaviour
     {
         [SerializeField] private GameLoop.GameState _requiredState;
+        [SerializeField] private Behaviour _target;
 
         private void Update()
         {
-            gameObject.SetActive(_requiredState==GameLoop.Instance.CurrentGameState);
+            _target.enabled=(_requiredState==GameLoop.Instance.CurrentGameState);
         }
     }
 }
