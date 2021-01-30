@@ -9,6 +9,8 @@ namespace PlanetNein.Runtime.CameraSystem
     {
         private CinemachineVirtualCamera _virtualCamera;
 
+        [SerializeField] private bool _focusOnWinner;
+
         private void Awake()
         {
             _virtualCamera = GetComponent<CinemachineVirtualCamera>();
@@ -16,10 +18,19 @@ namespace PlanetNein.Runtime.CameraSystem
 
         private void Update()
         {
-            var currentPlayer = GameLoop.Instance.OwnPlayer;
-            if (currentPlayer != null)
+            PlayerControl target;
+            if (_focusOnWinner)
             {
-                _virtualCamera.Follow = currentPlayer.transform;
+                target = GameLoop.Instance.Winner;
+            }
+            else
+            {
+                target = GameLoop.Instance.OwnPlayer;
+            }
+
+            if (target != null)
+            {
+                _virtualCamera.Follow = target.transform;
             }
         }
     }

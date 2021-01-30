@@ -110,7 +110,7 @@ MonoBehaviour:
   _reloadTime: 3
   projectile: {fileID: 5837197265171688003, guid: 33cebf89ae9e8634a830f9f336fc9453, type: 3}
   shotPushForce: 3
-  steeringPushForce: 2
+  steeringPushForce: 4.43
 --- !u!1001 &8108023865452415020
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -173,6 +173,10 @@ PrefabInstance:
     - target: {fileID: 2373786750075476558, guid: 714520d96b5c83e46b5f38e9efe15e42, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006392657991478279, guid: 714520d96b5c83e46b5f38e9efe15e42, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 714520d96b5c83e46b5f38e9efe15e42, type: 3}

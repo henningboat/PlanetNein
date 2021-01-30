@@ -49,6 +49,16 @@ namespace PlanetNein.Runtime.Gameplay
         {
             if (photonView.IsMine)
             {
+                float maxAllowedDistance = 60;
+                if (transform.position.magnitude > maxAllowedDistance)
+                {
+                    if (Vector2.Dot(transform.position, _rigidbody.velocity) > 0)
+                    {
+                        _rigidbody.velocity = Vector3.Project(_rigidbody.velocity, Vector3.Cross(transform.position, Vector3.forward));
+                    }
+                    transform.position = transform.position.normalized * maxAllowedDistance;
+                }
+
                 foreach (var other in GravityObjectManager.Instance.GravityObjects)
                 {
                     if (ReferenceEquals(other, this))
