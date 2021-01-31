@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 2471874366420077557}
   - component: {fileID: 505280636087017756}
   - component: {fileID: 2741161733237599642}
+  - component: {fileID: 8458809236940484034}
   m_Layer: 0
   m_Name: Planet
   m_TagString: Untagged
@@ -340,3 +341,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2.23
+--- !u!114 &8458809236940484034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2373786750075476530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fba3a5adee127d4594eff0b90ed4093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _faceSprites:
+  - {fileID: 21300000, guid: e229dec9a36b1bd40b419c4dcd653369, type: 3}
+  - {fileID: 21300000, guid: da8418aa899bcbf4898f7bd00f1c762f, type: 3}
+  - {fileID: 21300000, guid: fa36024f650475c43a838f42ac116a57, type: 3}
+  - {fileID: 21300000, guid: 24a7f0cf1a585784e9950821906b4e1a, type: 3}
+  - {fileID: 21300000, guid: af642035e191b1e4b94350fdc9e0368f, type: 3}
+  _sprites:
+  - {fileID: 21300000, guid: f81f32ce454e0f24991a8c5bcc349f9a, type: 3}
+  - {fileID: 21300000, guid: f36f35b1509da974d8221fccb37a3f54, type: 3}
+  - {fileID: 21300000, guid: 105b84b1436f383498ac292812151cce, type: 3}
+  - {fileID: 21300000, guid: ceafcc4e439e21d43942b1d234a32104, type: 3}
+  - {fileID: 21300000, guid: fc63f0336458f864ab0601fcd87ad619, type: 3}

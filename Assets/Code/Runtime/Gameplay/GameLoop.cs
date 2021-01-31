@@ -159,6 +159,7 @@ namespace PlanetNein.Runtime.Gameplay
                     break;
                 case GameState.PlayerWonRound:
                     RoundEndScreen.Instance.ShowScreen();
+                    Winner.GetComponent<SpriteSwitcher>().ShowFace();
                     break;
                 case GameState.Draw:
                     break;

@@ -1,3 +1,4 @@
+using System;
 using Photon.Pun;
 using UnityEngine;
 
@@ -23,6 +24,7 @@ namespace PlanetNein.Runtime.Gameplay
         {
             cam = Camera.main;
             GameLoop.Instance.RegisterPlayer(this);
+            GetComponent<SpriteSwitcher>().ShowFace();
         }
 
         private void Shoot(Vector2 target)
