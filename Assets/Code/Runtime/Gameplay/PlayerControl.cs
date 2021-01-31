@@ -1,4 +1,3 @@
-using System;
 using Photon.Pun;
 using UnityEngine;
 
@@ -24,7 +23,10 @@ namespace PlanetNein.Runtime.Gameplay
         {
             cam = Camera.main;
             GameLoop.Instance.RegisterPlayer(this);
-            GetComponent<SpriteSwitcher>().ShowFace();
+            if (photonView.IsMine)
+            {
+                GetComponent<SpriteSwitcher>().ShowFace();
+            }
         }
 
         private void Shoot(Vector2 target)
@@ -46,30 +48,35 @@ namespace PlanetNein.Runtime.Gameplay
 
         private void FixedUpdate()
         {
-            ApplySteering();
+            if (GameLoop.Instance.CurrentGameState == GameLoop.GameState.Ingame)
+            {
+                ApplySteering();
+            }
         }
 
         private void Update()
         {
-            if (photonView.IsMine)
+            if (GameLoop.Instance.CurrentGameState == GameLoop.GameState.Ingame)
             {
-
-                if (Input.GetMouseButtonDown(0))
+                if (photonView.IsMine)
                 {
-                    if (Time.time - _lastShotTime > _reloadTime)
+                    if (Input.GetMouseButtonDown(0))
                     {
-                        var targetDirection = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-                        Shoot(cam.ScreenToWorldPoint(targetDirection));
-                        
-                        _lastShotTime = Time.time;
+                        if (Time.time - _lastShotTime > _reloadTime)
+                        {
+                            var targetDirection = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+                            Shoot(cam.ScreenToWorldPoint(targetDirection));
+
+                            _lastShotTime = Time.time;
+                        }
                     }
-                }
 
-                if (Debug.isDebugBuild)
-                {
-                    if (Input.GetKeyDown(KeyCode.Delete))
+                    if (Debug.isDebugBuild)
                     {
-                        PhotonNetwork.Destroy(photonView);
+                        if (Input.GetKeyDown(KeyCode.Delete))
+                        {
+                            PhotonNetwork.Destroy(photonView);
+                        }
                     }
                 }
             }

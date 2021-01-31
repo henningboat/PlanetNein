@@ -172,8 +172,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aa2cd444b0e4ab2a527aa07fc63050f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lifetime: 4
-  _startForce: 10
+  _lifetime: 2
+  _startForce: 19.18
 --- !u!114 &713297154620003208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f12fb3dff3528a945a975f2ad0edb16a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gravityStrength: 10
+  _gravityStrength: 0
   _radius: 2
   _startForce: {x: 0, y: 0}
   forceMultiplier: 0

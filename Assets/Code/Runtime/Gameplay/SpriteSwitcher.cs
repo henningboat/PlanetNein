@@ -18,6 +18,7 @@ namespace PlanetNein.Runtime.Gameplay
 
         public void ShowFace()
         {
+            _spriteRenderer.sortingOrder = 100;
             _spriteRenderer.sprite = _faceSprites[_planetID];
         }
     }

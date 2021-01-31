@@ -101,6 +101,8 @@ namespace PlanetNein.Runtime.Gameplay
                     break;
                 case GameState.PlayerWonRound:
                     StartCoroutine(RestartRoundDelayed());
+                    RoundEndScreen.Instance.ShowScreen();
+                    Winner.GetComponent<SpriteSwitcher>().ShowFace();
                     break;
                 case GameState.Draw:
                     StartCoroutine(RestartRoundDelayed());
@@ -114,7 +116,7 @@ namespace PlanetNein.Runtime.Gameplay
 
         private IEnumerator RestartRoundDelayed()
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(5);
             PhotonNetwork.LoadLevel("MainScene");
         }
 
@@ -158,8 +160,6 @@ namespace PlanetNein.Runtime.Gameplay
                     }
                     break;
                 case GameState.PlayerWonRound:
-                    RoundEndScreen.Instance.ShowScreen();
-                    Winner.GetComponent<SpriteSwitcher>().ShowFace();
                     break;
                 case GameState.Draw:
                     break;
