@@ -1,10 +1,10 @@
-using System;
+using System.Collections;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
-
 
 namespace Runtime.Multiplayer
 {
@@ -20,6 +20,13 @@ namespace Runtime.Multiplayer
         }
 
         #endregion
+
+        public IEnumerator Start()
+        {
+            yield return new WaitForSeconds(3);
+            GetComponent<PlayableDirector>().Play();
+            Connect();
+        }
 
         #region Static Stuff
 
@@ -41,23 +48,18 @@ namespace Runtime.Multiplayer
 
         #endregion
 
-        public void Start()
-        {
-            Connect();
-        }
-
         #region Public methods
 
         /// <summary>
-        /// Loads LobbyScene, 
-        /// Gets called by EditorSessionStarter in Editor if the game is started from MainScene
+        ///     Loads LobbyScene,
+        ///     Gets called by EditorSessionStarter in Editor if the game is started from MainScene
         /// </summary>
         public static void EditorConnectSinglePlayer()
         {
             IsDebugSession = true;
             SceneManager.LoadScene("Lobby");
         }
-        
+
         public void Connect()
         {
             if (PhotonNetwork.IsConnected)
@@ -72,9 +74,9 @@ namespace Runtime.Multiplayer
 
         public override void OnConnectedToMaster()
         {
-            byte maxPlayers = (byte) (IsDebugSession ? 1 : 2);
-            
-            var roomName = IsDebugSession ? UnityEngine.Random.value.ToString() : "PublicMatch";
+            var maxPlayers = (byte) (IsDebugSession ? 1 : 2);
+
+            var roomName = IsDebugSession ? Random.value.ToString() : "PublicMatch";
             PhotonNetwork.JoinOrCreateRoom(roomName, new RoomOptions {MaxPlayers = maxPlayers}, TypedLobby.Default);
         }
 
@@ -95,10 +97,14 @@ namespace Runtime.Multiplayer
         {
 #if UNITY_EDITOR
             if (Application.isEditor)
+            {
                 EditorApplication.ExitPlaymode();
+            }
             else
 #endif
+            {
                 Application.Quit();
+            }
         }
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
